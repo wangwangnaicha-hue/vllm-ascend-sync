@@ -1,0 +1,23 @@
+name: Sync Ascend Image
+
+on: 
+  push: # 只要你点提交，海外服务器就会立刻启动帮你搬运
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 登录国内阿里云仓库
+      run: |
+        docker login --username=${{ secrets.ALI_USER }} --password=${{ secrets.ALI_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
+
+    - name: 海外机房全速拉取并推送
+      run: |
+        # 1. 微软海外机房秒级拉取原版 quay.io 镜像
+        docker pull quay.io/ascend/vllm-ascend:v0.18.0-a3
+        
+        # 2. 修改标签（请把下面两行里的“my-ascend”换成你自己在阿里云建立的【命名空间】名字）
+        docker tag quay.io/ascend/vllm-ascend:v0.18.0-a3 registry.cn-hangzhou.aliyuncs.com/vllm-ascend-sync/vllm-ascend:v0.18.0-a3
+        
+        # 3. 顺着大带宽网线直接推回国内阿里云
+        docker push registry.cn-hangzhou.aliyuncs.com/vllm-ascend-sync/vllm-ascend:v0.18.0-a3
