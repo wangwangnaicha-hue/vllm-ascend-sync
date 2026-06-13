@@ -14,7 +14,7 @@ jobs:
     - name: 海外机房全速拉取并精准推送
       run: |
         # 1. 微软海外机房秒级拉取官方原版 quay.io 镜像
-        docker pull quay.io/ascend/vllm-ascend:v0.18.0-a3
+        docker pull quay.io/ascend/vllm-ascend:v0.18.0-a3-arm64
         
         # 2. 修改标签（请把下面的“访问凭证”换成你自己在阿里云建立的【命名空间】名字）
         docker tag quay.io/ascend/vllm-ascend:v0.18.0-a3 crpi-bf0yte5512ys4qfu.cn-shenzhen.personal.cr.aliyuncs.com/vllm-ascend-sync/vllm-ascend:v0.18.0-a3
