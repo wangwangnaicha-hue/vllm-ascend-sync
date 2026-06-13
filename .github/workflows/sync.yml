@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: 登录国内阿里云仓库
       run: |
-        docker login --username=${{ secrets.ALI_USER }} --password=${{ secrets.ALI_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
+        docker login --username=${{ secrets.ALI_USER2 }} --password=${{ secrets.ALI_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
 
     - name: 海外机房全速拉取并推送
       run: |
